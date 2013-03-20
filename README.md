@@ -31,6 +31,8 @@ EventHorizon.on('manual-event',function(){
 });
 ```
 
-The triggers and handlers for a particular event can all be stopped by running `EventHorizon.removeEvent(eventName)`.  __NOTE:__ currently, if you remove an event from inside a handler for that event, then you must have run `EventHorizon.fireWhenTrue` or `EventHorizon.fireWhenEqual` __before__ `EventHorizon.on` for that event; otherwise the event will not be properly removed.
+The triggers and handlers for a particular event can all be stopped by running `EventHorizon.removeEvent(eventName)`. \
+
+__NOTE:__ currently, if you remove an event from inside a handler for that event, then you must have run `EventHorizon.fireWhenTrue` or `EventHorizon.fireWhenEqual` __before__ `EventHorizon.on` for that event; otherwise the event will not be properly removed.
 
 This library works well with the [session-extras](https://github.com/belisarius222/meteor-session-extras) library, which provides some closures like `Session.getter` that are useful for associating changes to Session variables with events.
