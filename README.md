@@ -11,6 +11,10 @@ EventHorizon.fireWhenTrue('loggedIn',function(){
 EventHorizon.on('loggedIn',function(){
   console.log('The user just logged in.');
 });
+
+EventHorizon.on('loggedIn',function(){
+  console.log('This function will also run when the event is fired.');
+});
 ```
 
 The triggers and handlers for a particular event can all be stopped by running `EventHorizon.removeEvent(eventName)`.  __NOTE:__ currently, if you remove an event from inside a handler for that event, then you must have run `EventHorizon.fireWhenTrue` or `EventHorizon.fireWhenEqual` __before__ `EventHorizon.on` for that event; otherwise the event will not be properly removed.
