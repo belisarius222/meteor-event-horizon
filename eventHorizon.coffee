@@ -23,6 +23,7 @@ if not Deps.isolate?
 _.extend @EventHorizon,
   listeners: {}
   handlers: {}
+  results: {}
   on: (eventName, func) ->
     self = this
     if not self.handlers[eventName]
@@ -31,12 +32,32 @@ _.extend @EventHorizon,
     self.handlers[eventName].push -> 
       Deps.nonreactive func
 
-  fire: (eventName) ->
+  fire: (eventName, eventData) ->
     self = this
     _.each self.handlers[eventName], (handler) ->
-      handler()
+      handler eventData
 
     return !! self.handlers[eventName]?.length
+
+  _ensureListener: (eventName, listener) ->
+    self = this
+    if not self.listeners[eventName]
+      self.listeners[eventName] = []
+
+    self.listeners[eventName].push listener   
+
+  fireOnChange: (eventName, func) ->
+    self = this
+
+    listener = Deps.autorun (computation) ->
+      lastResult = self.results[eventName]
+      result = Deps.isolate func
+      self.results[eventName] = result
+        
+      if not computation.firstRun and not EJSON.equals lastResult, result
+        self.fire eventName, result: result
+
+    self._ensureListener eventName, listener
 
   fireWhenEqual: (eventName, value, func) ->
     self = this
@@ -46,10 +67,7 @@ _.extend @EventHorizon,
       if EJSON.equals result, value
         self.fire eventName
 
-    if not self.listeners[eventName]
-      self.listeners[eventName] = []
-
-    self.listeners[eventName].push listener
+    self._ensureListener eventName, listener
 
   fireWhenTrue: (eventName, func) ->
     self = this
