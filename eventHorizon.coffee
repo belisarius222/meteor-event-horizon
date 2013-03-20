@@ -23,7 +23,6 @@ if not Deps.isolate?
 _.extend @EventHorizon,
   listeners: {}
   handlers: {}
-  results: {}
   on: (eventName, func) ->
     self = this
     if not self.handlers[eventName]
@@ -50,11 +49,9 @@ _.extend @EventHorizon,
     self = this
 
     listener = Deps.autorun (computation) ->
-      lastResult = self.results[eventName]
       result = Deps.isolate func
-      self.results[eventName] = result
         
-      if not computation.firstRun and not EJSON.equals lastResult, result
+      if not computation.firstRun
         self.fire eventName, result: result
 
     self._ensureListener eventName, listener
