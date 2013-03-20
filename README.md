@@ -1,7 +1,7 @@
 meteor-event-horizon
 ====================
 
-A basic reactive event system for Meteor.  I've found that I often want to have one or more callbacks run when the application's reactive state reaches a particular point (such as logged in).  This framework allows you to do that with a (hopefully) simple event system.  You can fire an event when a function's return value changes with `EventHorizon.fireOnChange`, when it becomes true (`EventHorizon.fireWhenTrue`) or equal to a particular EJSON value (`EventHorizon.fireWhenEqual`), or manually with `EventHorizon.fire`.  You can then set up one or more event handler functions with `EventHorizon.on`, and the functions will be called with   Here is some example usage:
+A basic reactive event system for Meteor.  I've found that I often want to have one or more callbacks run when the application's reactive state reaches a particular point (such as logged in).  This framework allows you to do that with a (hopefully) simple event system.  You can fire an event when a function's return value changes with `EventHorizon.fireOnChange`, when it becomes true (`EventHorizon.fireWhenTrue`) or equal to a particular EJSON value (`EventHorizon.fireWhenEqual`), or manually with `EventHorizon.fire`.  You can then set up one or more event handler functions with `EventHorizon.on`.  Here is some example usage:
 
 ```javascript
 EventHorizon.fireWhenTrue('loggedIn',function(){
