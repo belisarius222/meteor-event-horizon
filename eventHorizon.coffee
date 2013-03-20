@@ -28,8 +28,7 @@ _.extend @EventHorizon,
     if not self.handlers[eventName]
       self.handlers[eventName] = []
     
-    self.handlers[eventName].push -> 
-      Deps.nonreactive func
+    self.handlers[eventName].push func
 
   fire: (eventName, eventData) ->
     self = this
