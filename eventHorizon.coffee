@@ -34,7 +34,7 @@ _.extend @EventHorizon,
   fire: (eventName, eventData) ->
     self = this
     _.each self.handlers[eventName], (handler) ->
-      handler eventData
+      handler.call eventData
 
     return !! self.handlers[eventName]?.length
 
