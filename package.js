@@ -5,6 +5,6 @@ Package.describe({
 Package.on_use(function (api) {
 	api.use('coffeescript','client');
 	api.add_files([
-		'eventHorizon.js'
+		'eventHorizon.coffee'
 	],'client');
 });
